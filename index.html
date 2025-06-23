@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cartograf&iacute;a B&aacute;sica</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+    header, section {
+      padding: 20px;
+      margin: 10px auto;
+      max-width: 900px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    header {
+      background-color: #2c3e50;
+      color: white;
+      text-align: center;
+    }
+    h2 {
+      color: #2c3e50;
+    }
+    .map {
+      height: 400px;
+      margin-top: 20px;
+    }
+    .map-type {
+      margin-bottom: 20px;
+    }
+	.map-type img {
+	width: 100%;
+	height: auto;
+	max-height: 250px;
+	object-fit: contain;
+	border-radius: 8px;
+	margin-top: 8px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	}
+  </style>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+
+<header>
+  <h1>Cartograf&iacute;a B&aacute;sica</h1>
+  <p>Explora el mundo de los mapas y su utilidad en la vida moderna.</p>
+</header>
+
+<section>
+  <h2>¿Qu&eacute; es la Cartograf&iacute;a?</h2>
+  <p>Es la ciencia encargada de representar la superficie terrestre mediante mapas, permitiendo entender mejor el espacio geogr&aacute;fico.</p>
+</section>
+
+<section>
+  <h2>Tipos de Mapas</h2>
+  <div class="map-type">
+    <strong>Físico:</strong> Muestra montañas, ríos y relieve natural.
+    <img src="./ima_index/fisico.jpg" alt="Mapa físico">
+  </div>
+  <div class="map-type">
+    <strong>Político:</strong> Representa fronteras y divisiones administrativas.
+    <img src="./ima_index/politico.jpg" alt="Mapa político">
+  </div>
+  <div class="map-type">
+    <strong>Temático:</strong> Se enfoca en un tema como población o clima.
+    <img src="./ima_index/poblacion.jpg" alt="Mapa temático">
+  </div>
+  <div class="map-type">
+    <strong>Topográfico:</strong> Usa curvas de nivel para mostrar elevaciones.
+    <img src="./ima_index/nivel.jpg" alt="Mapa topográfico">
+  </div>
+</section>
+
+<section>
+  <h2>Elementos de un Mapa</h2>
+  <ul>
+    <li>Título</li>
+    <li>Escala</li>
+    <li>Leyenda</li>
+    <li>Coordenadas</li>
+    <li>Simbología</li>
+    <li>Orientación (Norte)</li>
+  </ul>
+</section>
+
+<section>
+  <h2>Cartografía Web</h2>
+  <p>Permite mostrar mapas interactivos en páginas web usando tecnologías como Leaflet, Google Maps o Mapbox.</p>
+  <div id="map" class="map"></div>
+</section>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+  var map = L.map('map').setView([-12.0464, -77.0428], 13); // Lima, Perú
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+  L.marker([-12.0464, -77.0428]).addTo(map)
+    .bindPopup('Centro de Lima')
+    .openPopup();
+</script>
+
+</body>
+</html>
