@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cartograf&iacute;a B&aacute;sica</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cartografía Básica</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -13,96 +14,223 @@
       background-color: #f4f4f4;
       color: #333;
     }
-    header, section {
-      padding: 20px;
-      margin: 10px auto;
-      max-width: 900px;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
+
     header {
       background-color: #2c3e50;
       color: white;
       text-align: center;
+      padding: 20px;
     }
+
+    .main-nav {
+      background-color: #4C7FB2;
+      color: white;
+      text-align: center;
+      padding: 0.5rem 0;
+    }
+
+    .main-nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .main-nav ul li {
+      display: inline;
+      margin-right: 20px;
+    }
+
+    .main-nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 15px 20px;
+      display: inline-block;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .main-nav ul li a:hover {
+      background-color: #825E11;
+      color: #ffe;
+    }
+
+    /* Layout principal */
+    .layout {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+
+    .main-content {
+      flex: 1 1 70%;
+      min-width: 300px;
+    }
+
+    .sidebar {
+      flex: 1 1 250px;
+      background-color: #4C7FB2;
+      color: white;
+      padding: 15px;
+      border-left: 5px solid #F4F7FA;
+      border-radius: 8px;
+      height: fit-content;
+      position: sticky;
+      top: 20px;
+    }
+
+    .sidebar h2 {
+      text-align: center;
+      background-color: #81A0BF;
+      padding: 10px;
+      color: white;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar ul li {
+      margin: 10px 0;
+      text-align: center;
+    }
+
+    .sidebar ul li a {
+      text-decoration: none;
+      font-weight: bold;
+      color: white;
+    }
+
+    section {
+      background: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
     h2 {
       color: #2c3e50;
     }
+
     .map {
       height: 400px;
       margin-top: 20px;
     }
+
     .map-type {
       margin-bottom: 20px;
+	  text-align: justify;
     }
-	.map-type img {
-	width: 100%;
-	height: auto;
-	max-height: 250px;
-	object-fit: contain;
-	border-radius: 8px;
-	margin-top: 8px;
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-	}
+
+    .map-type img {
+      width: 100%;
+      height: auto;
+      max-height: 250px;
+      object-fit: contain;
+      border-radius: 8px;
+      margin-top: 8px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+	
+	.ul li {
+    text-align: justify;
+    }
+
+    /* Responsivo para móviles */
+    @media (max-width: 768px) {
+      .layout {
+        flex-direction: column;
+      }
+      .sidebar {
+        order: -1;
+      }
+    }
   </style>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 <body>
 
 <header>
-  <h1>Cartograf&iacute;a B&aacute;sica</h1>
+  <h1>Cartografía Básica</h1>
   <p>Explora el mundo de los mapas y su utilidad en la vida moderna.</p>
 </header>
 
-<section>
-  <h2>¿Qu&eacute; es la Cartograf&iacute;a?</h2>
-  <p>Es la ciencia encargada de representar la superficie terrestre mediante mapas, permitiendo entender mejor el espacio geogr&aacute;fico.</p>
-</section>
-
-<section>
-  <h2>Tipos de Mapas</h2>
-  <div class="map-type">
-    <strong>Físico:</strong> Muestra montañas, ríos y relieve natural.
-    <img src="./ima_index/fisico.jpg" alt="Mapa físico">
-  </div>
-  <div class="map-type">
-    <strong>Político:</strong> Representa fronteras y divisiones administrativas.
-    <img src="./ima_index/politico.jpg" alt="Mapa político">
-  </div>
-  <div class="map-type">
-    <strong>Temático:</strong> Se enfoca en un tema como población o clima.
-    <img src="./ima_index/poblacion.jpg" alt="Mapa temático">
-  </div>
-  <div class="map-type">
-    <strong>Topográfico:</strong> Usa curvas de nivel para mostrar elevaciones.
-    <img src="./ima_index/nivel.jpg" alt="Mapa topográfico">
-  </div>
-</section>
-
-<section>
-  <h2>Elementos de un Mapa</h2>
+<nav class="main-nav">
   <ul>
-    <li>Título</li>
-    <li>Escala</li>
-    <li>Leyenda</li>
-    <li>Coordenadas</li>
-    <li>Simbología</li>
-    <li>Orientación (Norte)</li>
+    <li><a href="#">Ciencias Naturales</a></li>
+    <li><a href="#">Arte y Cultura</a></li>
+    <li><a href="#">Ciencias Sociales</a></li>
+    <li><a href="#">Contacto</a></li>
   </ul>
-</section>
+</nav>
 
-<section>
-  <h2>Cartografía Web</h2>
-  <p>Permite mostrar mapas interactivos en páginas web usando tecnologías como Leaflet, Google Maps o Mapbox.</p>
-  <div id="map" class="map"></div>
-</section>
+<div class="layout">
+  <div class="main-content">
+    <section id="que-es">
+      <h2>¿Qué es la Cartografía?</h2>
+      <p style="text-align: justify;">La cartografía es la ciencia y el arte de crear mapas, representaciones gráficas de la Tierra o de otras partes del espacio. Implica la recopilación, análisis y procesamiento de datos geográficos para producir mapas que muestran la ubicación de características físicas y humanas, así como otros datos relevantes. </p>
+    </section>
+
+    <section id="tipos">
+      <h2>Tipos de Mapas</h2>
+      <div class="map-type">
+        <strong>Físico:</strong> Un mapa físico, es una representación gráfica de las características naturales de la superficie terrestre, como montañas, ríos, lagos, y relieves. Se enfoca en mostrar la topografía y la hidrografía de un área, utilizando colores, sombreado o curvas de nivel para indicar la altitud y la forma del terreno. 
+        <img src="./ima_index/fisico.jpg" alt="Mapa físico">
+      </div>
+      <div class="map-type">
+        <strong>Político:</strong> Un mapa político es un tipo de mapa que representa la división política de una región, como países, estados, provincias o ciudades, mostrando sus fronteras y límites administrativos.
+        <img src="./ima_index/politico.jpg" alt="Mapa político">
+      </div>
+      <div class="map-type">
+        <strong>Temático:</strong> Un mapa temático es un tipo de mapa diseñado para mostrar información específica sobre un tema particular, en contraste con los mapas generales que representan una variedad de elementos. Estos mapas utilizan símbolos, colores o patrones para visualizar datos geográficos o sociales de un área específica, como la distribución de la población, el clima o el uso del suelo. 
+        <img src="./ima_index/poblacion.jpg" alt="Mapa temático">
+      </div>
+      <div class="map-type">
+        <strong>Topográfico:</strong> Un mapa topográfico es una representación gráfica detallada de la superficie terrestre que muestra tanto elementos naturales como artificiales, incluyendo elevaciones y curvas de nivel que indican la altitud del terreno.
+        <img src="./ima_index/nivel.jpg" alt="Mapa topográfico">
+      </div>
+    </section>
+
+    <section id="elementos">
+      <h2>Elementos de un Mapa</h2>
+      <ul>
+        <li><strong>Título:</strong> Indica de qué trata el mapa y permite al lector conocer el tema o el área geográfica representada. </li>
+        <li><strong>Escala:</strong> Muestra la relación entre una distancia en el mapa y su equivalente en la realidad. Puede ser gráfica o numérica (por ejemplo, 1:50 000).</li>
+        <li><strong>Leyenda:</strong> Explica el significado de los símbolos, colores o líneas usados en el mapa, facilitando su interpretación.</li>
+        <li><strong>Coordenadas:</strong> Son líneas imaginarias (latitud y longitud) que permiten ubicar cualquier punto sobre la superficie terrestre con precisión.</li>
+        <li><strong>Simbología:</strong> Conjunto de símbolos o colores utilizados para representar diferentes elementos geográficos o temáticos (como ríos, ciudades, rutas, etc.).</li>
+        <li><strong>rientación (Norte):</strong> Indica hacia dónde está el norte en el mapa, normalmente mediante una flecha, ayudando a entender la dirección de los elementos representados.</li>
+      </ul>
+    </section>
+
+    <section id="interactivo">
+      <h2>Cartografía Web</h2>
+      <p>Permite mostrar mapas interactivos en páginas web usando tecnologías como Leaflet, Google Maps o Mapbox.</p>
+      <div id="map" class="map"></div>
+    </section>
+  </div>
+
+  <aside class="sidebar">
+    <h2>Índice</h2>
+    <ul>
+      <li><a href="#que-es">¿Qu&eacute; es la Cartograf&iacute;a?</a></li>
+      <li><a href="#tipos">Tipos de Mapas</a></li>
+      <li><a href="#elementos">Elementos de un Mapa</a></li>
+      <li><a href="#interactivo">Cartograf&iacute;a Web</a></li>
+    </ul>
+  </aside>
+</div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-  var map = L.map('map').setView([-12.0464, -77.0428], 13); // Lima, Perú
+  var map = L.map('map').setView([-12.0464, -77.0428], 13);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '© OpenStreetMap contributors'
   }).addTo(map);
@@ -113,3 +241,4 @@
 
 </body>
 </html>
+
